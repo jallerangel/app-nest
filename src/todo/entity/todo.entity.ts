@@ -1,7 +1,7 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 
 @ObjectType( )
-export class ToDo {
+export class Todo {
 
     @Field( () => Int )
     id: number;

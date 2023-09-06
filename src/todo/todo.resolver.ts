@@ -1,14 +1,15 @@
 import { Resolver, Query, Mutation } from '@nestjs/graphql';
-import { ToDo } from './entity/todo.entity';
+import { Todo } from './entity/todo.entity';
 
 @Resolver()
 export class TodoResolver {
 
-    @Query( () => [ToDo], {name: 'todos'})
-    findAll(): [ToDo] {
+    @Query( () => [Todo], {name: 'todos'})
+    findAll(): [Todo] {
         return [{ id: 212, description: 'Este es un todo', done: false}]
     }
 
+    // @Query(() => [{toDo: String}])
     findOne() {
 
     }

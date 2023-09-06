@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type ToDo {
+type Todo {
   id: Int!
   description: String!
   done: Boolean!
@@ -15,5 +15,5 @@ type Query {
 
   """From zero to argument TO (default 6)"""
   randomFromZeroTo(to: Int): Int!
-  todos: [ToDo!]!
+  todos: [Todo!]!
 }
