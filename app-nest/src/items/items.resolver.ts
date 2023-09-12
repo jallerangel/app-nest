@@ -1,7 +1,7 @@
 import { ParseUUIDPipe } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
 import { ItemsService } from './items.service';
-import { Item } from './entities/item.entity';
+import { Item } from './entity/item.entity';
 import { CreateItemInput, UpdateItemInput } from './dto/inputs';
 
 @Resolver(() => Item)
