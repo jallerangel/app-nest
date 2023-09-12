@@ -1,0 +1,14 @@
+imageName=helm-deploy
+imageTag=placeholder
+docker_registry=#{docker_registry}
+arm_client_id=#{arm_client_id}
+arm_client_secret=#{arm_client_secret}
+arm_tenant_id=#{arm_tenant_id}
+arm_subscription_id=#{arm_subscription_id}
+cluster_name=#{cluster_name}
+cluster_resource_group=#{cluster_resource_group}
+namespace=#{namespace}
+chart=#{chartName}
+projectName=#{projectName}
+deployVersion=#{Octopus.Release.Number}
+nodeEnv=#{nodeEnv}
