@@ -22,7 +22,7 @@ jobs:
           cache: "yarn"
           cache-dependency-path: "./app-nest/yarn.lock"
       - name: Install dependencies
-        run: yarn
+        run: yarn --frozen-lockfile
       - name: Build
         run: yarn build
       - name: Run Unit Tests
