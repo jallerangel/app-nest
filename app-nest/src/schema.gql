@@ -16,6 +16,13 @@ type AggregationsType {
   totalTodosCompleted: Int! @deprecated(reason: "Most use completed instead")
 }
 
+type Item {
+  id: ID!
+  name: String!
+  quantity: Float!
+  quantityUnits: String
+}
+
 type Query {
   """Hola Mundo es lo que retorna"""
   hello: String!
@@ -29,12 +36,17 @@ type Query {
   pendingTodos: Int!
   completedTodos: Int!
   aggregations: AggregationsType!
+  items: [Item!]!
+  item(id: ID!): Item!
 }
 
 type Mutation {
   createTodo(createTodoInput: CreateTodoInput!): Todo!
   updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
   removeTodo(id: Int!): Boolean!
+  createItem(createItemInput: CreateItemInput!): Item!
+  updateItem(updateItemInput: UpdateItemInput!): Item!
+  removeItem(id: ID!): Item!
 }
 
 input CreateTodoInput {
@@ -48,4 +60,17 @@ input UpdateTodoInput {
   """What needs to be done"""
   description: String
   done: Boolean
+}
+
+input CreateItemInput {
+  name: String!
+  quantity: Float!
+  quantityUnits: String
+}
+
+input UpdateItemInput {
+  name: String
+  quantity: Float
+  quantityUnits: String
+  id: ID!
 }
