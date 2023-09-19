@@ -1,14 +1,14 @@
-version: '3'
+version: "3"
 
 services:
   db:
-    image: postgres:14.4
+    image: postgres:latest
     restart: always
     ports:
-      - '5432:5432'
+      - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: algunpassword
+      POSTGRES_DB: AnyList
     container_name: anylistDB
     volumes:
       - ./postgres:/var/lib/postgresql/data
