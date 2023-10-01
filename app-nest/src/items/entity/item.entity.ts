@@ -6,19 +6,19 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export class Item {
   
   @PrimaryGeneratedColumn('uuid')
-  @Field( () => ID )
+  @Field(() => ID)
   id: string;
 
   @Column()
-  @Field( () => String )
+  @Field(() => String)
   name: string;
 
   @Column()
-  @Field( () => Float )
+  @Field(() => Float)
   quantity: number;
 
   @Column({ nullable: true })
-  @Field( () => String, { nullable: true } )
+  @Field(() => String, { nullable: true })
   quantityUnits?: string; // g, ml, kg, tsp
 
   // stores

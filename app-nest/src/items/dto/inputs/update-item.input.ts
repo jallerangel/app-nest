@@ -4,9 +4,7 @@ import { IsUUID } from 'class-validator';
 
 @InputType()
 export class UpdateItemInput extends PartialType(CreateItemInput) {
-  
   @Field(() => ID)
   @IsUUID()
   id: string;
-
 }
