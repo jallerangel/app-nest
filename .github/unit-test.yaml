@@ -1,18 +1,11 @@
 name: Unit Tests
-
 on:
   pull_request:
     branches:
       - main
-
 jobs:
   build-and-test-attachment:
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: ./
-
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
