@@ -2,25 +2,24 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Todo {
-  id: Int!
-  description: String!
-  done: Boolean!
-}
-
-"""Todo quick aggregations"""
-type AggregationsType {
-  total: Int!
-  pending: Int!
-  completed: Int!
-  totalTodosCompleted: Int! @deprecated(reason: "Most use completed instead")
-}
-
 type Item {
   id: ID!
   name: String!
   quantity: Float!
   quantityUnits: String
+}
+
+type User {
+  id: ID!
+  fullName: String!
+  email: String!
+  roles: [String!]!
+  isActive: Boolean!
+}
+
+type AuthResponse {
+  token: String!
+  user: User!
 }
 
 type Query {
@@ -30,36 +29,20 @@ type Query {
 
   """From zero to argument TO (default 6)"""
   randomFromZeroTo(to: Int): Int!
-  todos(status: Boolean): [Todo!]!
-  todo(id: Int!): Todo!
-  totalTodos: Int!
-  pendingTodos: Int!
-  completedTodos: Int!
-  aggregations: AggregationsType!
   items: [Item!]!
   item(id: ID!): Item!
+  users: [User!]!
+  user(id: ID!): User!
+  revalidate: AuthResponse!
 }
 
 type Mutation {
-  createTodo(createTodoInput: CreateTodoInput!): Todo!
-  updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
-  removeTodo(id: Int!): Boolean!
   createItem(createItemInput: CreateItemInput!): Item!
   updateItem(updateItemInput: UpdateItemInput!): Item!
   removeItem(id: ID!): Item!
-}
-
-input CreateTodoInput {
-  """What needs to be done"""
-  description: String!
-}
-
-input UpdateTodoInput {
-  id: Int!
-
-  """What needs to be done"""
-  description: String
-  done: Boolean
+  blockUser(id: ID!): User!
+  signup(signupInput: SignupInput!): AuthResponse!
+  login(loginInput: LoginInput!): AuthResponse!
 }
 
 input CreateItemInput {
@@ -73,4 +56,15 @@ input UpdateItemInput {
   quantity: Float
   quantityUnits: String
   id: ID!
+}
+
+input SignupInput {
+  email: String!
+  fullName: String!
+  password: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
 }
