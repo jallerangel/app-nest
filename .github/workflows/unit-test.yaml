@@ -1,0 +1,22 @@
+name: Unit Tests
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  build-and-test-attachment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          cache: "yarn"
+          cache-dependency-path: "./yarn.lock"
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Build
+        run: yarn build
+      - name: Run Unit Tests
+        run: yarn test
