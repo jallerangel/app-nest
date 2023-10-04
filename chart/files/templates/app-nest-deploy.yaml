@@ -1,0 +1,122 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "app.appNest.fullname" . }}
+  labels:
+{{ include "app.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.global.appNest.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "app.appNest.fullname" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "app.appNest.fullname" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- if .Values.forceUpdates }}
+        rollme: {{ randAlphaNum 5 | quote }}
+      {{- end }}
+      annotations:
+        seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default'
+        apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
+        seccomp.security.alpha.kubernetes.io/defaultProfileName:  'docker/default'
+        apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
+    spec:
+      serviceAccountName: {{ include "app.appNest.fullname" . }}
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
+      affinity:
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                podAffinityTerm:
+                  labelSelector:
+                    matchExpressions:
+                      - key: "app.kubernetes.io/name"
+                        operator: In
+                        values:
+                        - {{ include "app.appNest.fullname" . }}
+                  topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: server
+          image: app-nest:{{ .Values.global.appNest.image.tag }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /liveness
+              port: 3000
+            initialDelaySeconds: 5
+            timeoutSeconds: 10
+            failureThreshold: 10
+          imagePullPolicy: {{ .Values.global.appNest.image.pullPolicy }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - all
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: {{ .Values.global.nodeEnv | default "production" }}
+            - name: ENVIRONMENT
+              value: local
+            - name: LOG_LEVEL
+              value: debug
+            - name: PORT
+              value: {{ .Values.global.appNest.port | quote }}
+            - name: STATE
+              value: {{ .Values.global.appNest.state }}
+            - name: DB_HOST
+              value: {{ .Values.global.appNest.dbHost }}
+            - name: DB_PORT
+              value: {{ .Values.global.appNest.dbPort | quote }}
+            - name: DB_USERNAME
+              value: {{ .Values.global.appNest.dbUsername }}
+            - name:  DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-nest-secret
+                  key: dbPassword
+            - name:  DB_NAME
+              value: {{ .Values.global.appNest.dbName }}
+            - name:  JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: app-nest-secret
+                  key: jwtSecret
+          resources:
+            requests:
+              cpu: "{{ .Values.global.requestsCPURequest }}"
+              memory: {{ .Values.global.requestsMemoryRequest }}
+            limits:
+              memory: {{ .Values.global.requestsMemoryLimit }}
+          volumeMounts:
+            - name: logs
+              mountPath: /logs
+      volumes:
+        - name: logs
+          emptyDir: {}
+    {{- if .Values.global.appNest.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.global.appNest.nodeSelector | indent 8 }}
+    {{- end }}
+    {{- if .Values.global.appNest.tolerations }}
+      tolerations:
+{{ toYaml .Values.global.appNest.tolerations | indent 8 }}
+    {{- end }}
+    {{- if .Values.global.appNest.affinity }}
+      affinity:
+{{ toYaml .Values.global.appNest.affinity | indent 8 }}
+    {{- end }} 
