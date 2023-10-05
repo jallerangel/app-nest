@@ -7,10 +7,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 
 import { HelloWorldModule } from './hello-world/hello-world.module';
-import { ItemsModule } from './items/items.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -23,21 +19,7 @@ import { AuthModule } from './auth/auth.module';
         ApolloServerPluginLandingPageLocalDefault
       ]
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: +process.env.DB_PORT,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      synchronize: true,
-      autoLoadEntities: true,
-    }),
     HelloWorldModule,
-    ItemsModule,
-    UsersModule,
-    AuthModule,
-
   ],
   controllers: [],
   providers: [],
