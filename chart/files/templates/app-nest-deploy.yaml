@@ -43,7 +43,7 @@ spec:
                   topologyKey: "kubernetes.io/hostname"
       containers:
         - name: server
-          image: app-nest:{{ .Values.global.appNest.image.tag }}
+          image: jallerangel/app-nest:{{ .Values.global.appNest.image.tag }}
           readinessProbe:
             httpGet:
               path: /health

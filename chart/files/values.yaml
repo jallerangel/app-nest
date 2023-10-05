@@ -1,16 +1,16 @@
 fullnameOverride: app-nest
 
 global:
-  requestsCPURequest: 0.01
-  requestsMemoryRequest: 80M
-  requestsMemoryLimit: 100M
+  requestsCPURequest: 0.2
+  requestsMemoryRequest: 200M
+  requestsMemoryLimit: 250M
   namespace: default
 
   appNest:
     name: app-nest
-    replicaCount: 1
+    replicaCount: 3
     image:
-      tag: latest
+      tag: main
       pullPolicy: #{pullPolicy}
     resources: {}
     nodeSelector: {}
@@ -18,8 +18,8 @@ global:
     affinity: {}
     port: 3000
     state: dev
-    dbHost: localhost
-    dbPort: 5432
+    dbHost: 6.tcp.ngrok.io
+    dbPort: 15028
     dbUsername: postgres
     dbPassword: algunpassword
     dbName: AnyList
