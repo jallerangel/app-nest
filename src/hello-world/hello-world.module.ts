@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
-import { HelloWorldResolver } from './hello-world.resolver';
+import { Module } from "@nestjs/common";
+import { HelloWorldResolver } from "./hello-world.resolver";
 
 @Module({
-  providers: [HelloWorldResolver]
+  providers: [HelloWorldResolver],
 })
 export class HelloWorldModule {}
