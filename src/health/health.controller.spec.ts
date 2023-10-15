@@ -16,7 +16,13 @@ describe('HealthController', () => {
 
   describe('health check', () => {
     it('should return Ok', () => {
-      expect(healthController.getHealth()).toBe('OK');
+      expect(healthController.getHealth()).toBe('Health OK');
+    });
+  });
+
+  describe('liveness check', () => {
+    it('should return Ok', () => {
+      expect(healthController.getLiveness()).toBe('Liveness OK');
     });
   });
 });
