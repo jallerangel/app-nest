@@ -13,6 +13,7 @@ import { ItemsModule } from "./items/items.module";
 import { UsersModule } from "./users/users.module";
 import { AuthModule } from "./auth/auth.module";
 import { HealthModule } from './health/health.module';
+import { HelloWorldModule } from './hello-world/hello-world.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { HealthModule } from './health/health.module';
       synchronize: true,
       autoLoadEntities: true,
     }),
+    HelloWorldModule,
     ItemsModule,
     UsersModule,
     AuthModule,
